@@ -2,6 +2,8 @@ import React from 'react'
 
 export default function Main() {
   return (
-    <div>Mjmmmhjm</div>
+    <div>
+        <img src="mars.png" alt="mars-demo-picture" />
+    </div>
   )
 }
