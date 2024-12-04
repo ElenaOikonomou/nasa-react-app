@@ -10,7 +10,9 @@ export default function Sidebar() {
                 <p>Description</p>
                 <p>This image was captured from NASA</p>
             </div>    
-            < button></button>
+            <button>
+            <i className='fa-solid fa-right-long'></i>
+            </button>
             </div>    
     </div>
   )
