@@ -1,19 +1,43 @@
 import Main from "./components/Main"
 import Sidebar from "./components/Sidebar"
 import Footer from "./components/Footer"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+
 function App() {
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+ 
+
   const [showModal, setShowModal] = useState(true)
+
 
   function handleToggleModal(){
     setShowModal(!showModal)
   }
   
+ 
+
+  useEffect(() => {
+    async function fetchAPIData(){
+      const NASA_KEY = import.meta.env.VITE_NASA_API_KEY
+      const url = 'https://api.nasa.gov/planetary/apod' + `?api_key=${NASA_KEY}`
+      try {
+        const res = await fetch(url)
+        const data = await res.json()
+        console.log('DATA\n', data)
+      } catch(err){
+        console.log(err.message)
+      }
+    }
+    fetchAPIData()
+  }, [])
 
   return (
     <>
       <Main />
-      {showModal && (<Sidebar />)}     
+      {showModal && (
+        <Sidebar handleToggleModal={handleToggleModal}/>)}     
       <Footer showModal={showModal} handleToggleModal={handleToggleModal}/>
     </>
   )
