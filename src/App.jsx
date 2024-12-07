@@ -24,8 +24,9 @@ function App() {
       const url = 'https://api.nasa.gov/planetary/apod' + `?api_key=${NASA_KEY}`
       try {
         const res = await fetch(url)
-        const data = await res.json()
-        console.log('DATA\n', data)
+        const apiData = await res.json()
+        setData(apiData)
+        console.log('DATA\n', apiData)
       } catch(err){
         console.log(err.message)
       }
@@ -35,10 +36,12 @@ function App() {
 
   return (
     <>
-      <Main />
+      {data ? (<Main />): (<div className="loadingState">
+        <i className="fa-solid fa-gear"></i>
+        </div>)}
       {showModal && (
-        <Sidebar handleToggleModal={handleToggleModal}/>)}     
-      <Footer showModal={showModal} handleToggleModal={handleToggleModal}/>
+        <Sidebar handleToggleModal={handleToggleModal}  data={data}/>)}     
+      {data && (<Footer showModal={showModal} handleToggleModal={handleToggleModal} data={data}/>)}
     </>
   )
 }
